@@ -1,0 +1,92 @@
+[
+  {
+    "id": "M0.1",
+    "title": "Choisir le test et le score cible",
+    "description": "Comprendre IELTS vs TOEFL et définir un objectif réaliste."
+  },
+  {
+    "id": "M0.2",
+    "title": "Diagnostic + plan de 4 semaines",
+    "description": "Mesurer le niveau initial et transformer l'écart en plan d'action."
+  },
+  {
+    "id": "R1",
+    "title": "Reading : lire vite et repérer l'essentiel",
+    "description": "Skimming, scanning, structure du texte et gestion du temps."
+  },
+  {
+    "id": "R2",
+    "title": "Reading : types de questions et pièges",
+    "description": "Méthodes de résolution, distracteurs et vérification des preuves."
+  },
+  {
+    "id": "L1",
+    "title": "Listening : prise de notes efficace",
+    "description": "Noter idées, relations logiques et informations utiles sans tout écrire."
+  },
+  {
+    "id": "L2",
+    "title": "Listening : éviter les pièges",
+    "description": "Anticipation, reformulation, distracteurs et écoute active."
+  },
+  {
+    "id": "S1",
+    "title": "Speaking : structurer une réponse",
+    "description": "Construire une réponse claire avec une structure simple et adaptable."
+  },
+  {
+    "id": "S2",
+    "title": "Speaking : fluidité, connecteurs, prononciation",
+    "description": "Gagner en clarté sans réciter des phrases artificielles."
+  },
+  {
+    "id": "S3",
+    "title": "Speaking : simulation chronométrée",
+    "description": "S'entraîner sous contrainte et analyser sa performance."
+  },
+  {
+    "id": "W1",
+    "title": "IELTS Writing Task 1",
+    "description": "Décrire et comparer des données avec une organisation claire."
+  },
+  {
+    "id": "W2",
+    "title": "Writing argumentatif + TOEFL",
+    "description": "Développer une idée, justifier et respecter la tâche demandée."
+  },
+  {
+    "id": "W3",
+    "title": "Grammar : erreurs fréquentes des francophones",
+    "description": "Corriger les erreurs qui réduisent la précision et la lisibilité."
+  },
+  {
+    "id": "W4",
+    "title": "Academic Vocabulary",
+    "description": "Construire un vocabulaire utile, réutilisable et mémorisable."
+  },
+  {
+    "id": "T1",
+    "title": "Test day : stress et logistique",
+    "description": "Préparer matériel, timing, sommeil et stratégie mentale."
+  },
+  {
+    "id": "T2",
+    "title": "Mock test final + analyse",
+    "description": "Faire un test blanc et transformer les erreurs en actions."
+  },
+  {
+    "id": "B1",
+    "title": "Lettre de motivation",
+    "description": "Relier projet, formation, impact et preuves concrètes."
+  },
+  {
+    "id": "B2",
+    "title": "CV académique + documents",
+    "description": "Présenter un dossier lisible, cohérent et vérifiable."
+  },
+  {
+    "id": "B3",
+    "title": "Calendrier + erreurs fatales",
+    "description": "Organiser les échéances et contrôler le dossier avant envoi."
+  }
+]
