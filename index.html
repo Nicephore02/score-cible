@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Score Cible — IELTS & TOEFL + Dossier Bourse</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">SCORE<span>CIBLE</span></div>
+  <nav>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#parcours">Parcours</a>
+    <a href="#coach">Coach</a>
+    <a href="#bourse">Bourse</a>
+  </nav>
+  <button class="ghost" id="resetBtn">Réinitialiser</button>
+</header>
+
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow">IELTS • TOEFL • BOURSE</div>
+    <h1>Transforme ton objectif en <em>plan d'action.</em></h1>
+    <p>Un parcours guidé pour mesurer ton niveau, travailler les 4 compétences, simuler l'examen et construire un dossier de bourse cohérent.</p>
+    <div class="hero-actions">
+      <button class="primary" onclick="document.querySelector('#diagnostic').scrollIntoView({behavior:'smooth'})">Lancer mon diagnostic</button>
+      <button class="secondary" onclick="document.querySelector('#parcours').scrollIntoView({behavior:'smooth'})">Voir le parcours</button>
+    </div>
+    <div class="trust">Formation indépendante • contenus originaux • progression enregistrée dans le navigateur</div>
+  </div>
+  <div class="score-card">
+    <div class="mini-label">OBJECTIF</div>
+    <div class="big-score" id="heroScore">IELTS 7.5</div>
+    <div class="progress"><span id="heroProgress"></span></div>
+    <div class="score-row"><span>Progression</span><strong id="heroPct">0%</strong></div>
+    <div class="score-row"><span>Leçon suivante</span><strong id="nextLesson">M0.1</strong></div>
+  </div>
+</section>
+
+<main>
+<section id="diagnostic" class="panel">
+  <div class="section-head">
+    <div><div class="eyebrow">ÉTAPE 01</div><h2>Ton diagnostic express</h2></div>
+    <span class="pill">2 minutes</span>
+  </div>
+  <div class="form-grid">
+    <label>Test
+      <select id="test">
+        <option>IELTS</option><option>TOEFL iBT</option>
+      </select>
+    </label>
+    <label>Score cible
+      <input id="target" value="7.5" placeholder="Ex. 7.0 / 7.5 / 5.5">
+    </label>
+    <label>Niveau estimé
+      <select id="level"><option>B1</option><option>B2</option><option>C1</option><option>C2</option></select>
+    </label>
+    <label>Temps / semaine
+      <select id="hours"><option>3–5 h</option><option>5–8 h</option><option>8–12 h</option><option>12 h+</option></select>
+    </label>
+  </div>
+  <button class="primary" id="saveDiag">Créer mon plan</button>
+  <div id="diagResult" class="result hidden"></div>
+</section>
+
+<section id="dashboard" class="panel">
+  <div class="section-head"><div><div class="eyebrow">ÉTAPE 02</div><h2>Ton dashboard</h2></div></div>
+  <div class="stats">
+    <div class="stat"><span>Progression</span><strong id="pct">0%</strong></div>
+    <div class="stat"><span>XP</span><strong id="xp">0</strong></div>
+    <div class="stat"><span>Leçons terminées</span><strong id="done">0/18</strong></div>
+    <div class="stat"><span>Série</span><strong id="streak">0 jour</strong></div>
+  </div>
+  <div class="dashboard-grid">
+    <div class="card">
+      <h3>Cette semaine</h3>
+      <ul class="checklist">
+        <li><input type="checkbox" class="week"> 1 leçon Reading</li>
+        <li><input type="checkbox" class="week"> 1 entraînement Listening</li>
+        <li><input type="checkbox" class="week"> 2 Speaking chronométrés</li>
+        <li><input type="checkbox" class="week"> 1 Writing corrigé</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Règle d'or</h3>
+      <p id="rule">Ne cherche pas à tout mémoriser. Cherche à comprendre tes erreurs et à les empêcher de se reproduire.</p>
+      <button class="secondary" id="newRule">Nouvelle règle</button>
+    </div>
+  </div>
+</section>
+
+<section id="parcours" class="panel">
+  <div class="section-head">
+    <div><div class="eyebrow">ÉTAPE 03</div><h2>18 leçons — parcours guidé</h2></div>
+    <span class="pill">XP + progression</span>
+  </div>
+  <div id="lessons" class="lesson-grid"></div>
+</section>
+
+<section id="practice" class="panel">
+  <div class="section-head"><div><div class="eyebrow">ÉTAPE 04</div><h2>Mini quiz</h2></div><span class="pill">+50 XP</span></div>
+  <div id="quiz"></div>
+  <button class="primary" id="checkQuiz">Corriger le quiz</button>
+  <div id="quizResult" class="result hidden"></div>
+</section>
+
+<section id="coach" class="panel coach">
+  <div class="section-head"><div><div class="eyebrow">ÉTAPE 05</div><h2>Coach de préparation</h2></div></div>
+  <div class="coach-box">
+    <div class="coach-message"><strong>Coach</strong><br>Décris-moi ton problème en une phrase : « Je bloque en… »</div>
+    <div class="coach-prompts">
+      <button onclick="coachReply('reading')">Je bloque en Reading</button>
+      <button onclick="coachReply('listening')">Je bloque en Listening</button>
+      <button onclick="coachReply('speaking')">Je bloque en Speaking</button>
+      <button onclick="coachReply('writing')">Je bloque en Writing</button>
+    </div>
+    <div id="coachAnswer" class="coach-answer">Choisis une compétence pour obtenir une première stratégie.</div>
+  </div>
+</section>
+
+<section id="bourse" class="panel">
+  <div class="section-head"><div><div class="eyebrow">ÉTAPE 06</div><h2>Dossier de bourse</h2></div><span class="pill">Checklist</span></div>
+  <div class="scholar-grid">
+    <label><input type="checkbox" class="scholar"> Formation et conditions d'éligibilité vérifiées</label>
+    <label><input type="checkbox" class="scholar"> Score linguistique compatible avec la formation</label>
+    <label><input type="checkbox" class="scholar"> CV académique finalisé</label>
+    <label><input type="checkbox" class="scholar"> Relevés / diplômes réunis</label>
+    <label><input type="checkbox" class="scholar"> Lettre de motivation adaptée</label>
+    <label><input type="checkbox" class="scholar"> Projet professionnel cohérent</label>
+    <label><input type="checkbox" class="scholar"> Recommandations vérifiées</label>
+    <label><input type="checkbox" class="scholar"> Dates limites contrôlées</label>
+  </div>
+</section>
+
+<section class="sources panel">
+  <h2>Note importante sur les examens</h2>
+  <p>Les formats évoluent. Pour le TOEFL iBT, la version en vigueur depuis le 21 janvier 2026 utilise une échelle de 1 à 6 et un test adaptatif, avec une période de transition où un score comparable sur 0–120 apparaît également sur le relevé. Vérifie toujours les exigences de l'établissement visé avant de publier ou d'utiliser un score cible.</p>
+  <p class="small">Formation indépendante, non affiliée à ETS, British Council, IDP ou Cambridge. Les exercices de cette plateforme sont originaux.</p>
+</section>
+</main>
+<footer>© Score Cible — MVP éducatif • Progression locale dans le navigateur</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>
