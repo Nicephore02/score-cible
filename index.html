@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Score Cible — IELTS & TOEFL + Dossier Bourse</title>
+<style>
+:root{
+  --ink:#1c2521; --ink-soft:#4b5750; --paper:#f6f3ec; --paper-raised:#ffffff;
+  --line:#d8d2c3; --accent:#2c5f4f; --accent-soft:#dbe9e2; --gold:#a9863b;
+  --danger:#8a3b2e;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ink:#eef1ee; --ink-soft:#b7c0b9; --paper:#161d19; --paper-raised:#1e2621;
+    --line:#33403a; --accent:#7fbfa6; --accent-soft:#223530; --gold:#d8b56a; --danger:#e0897a;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#eef1ee; --ink-soft:#b7c0b9; --paper:#161d19; --paper-raised:#1e2621;
+  --line:#33403a; --accent:#7fbfa6; --accent-soft:#223530; --gold:#d8b56a; --danger:#e0897a;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px); height:100%;}
+*{box-sizing:border-box;}
+body{
+  margin:0; min-height:100%; background:var(--paper); color:var(--ink);
+  font-family: Georgia, 'Iowan Old Style', 'Palatino Linotype', serif;
+  line-height:1.5;
+}
+h1,h2,h3,.brand,button,.nav a{font-family: 'Avenir Next','Segoe UI',system-ui,sans-serif;}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+header{position:sticky;top:0;top:env(safe-area-inset-top,0px);z-index:10;background:var(--paper);border-bottom:1px solid var(--line);}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;max-width:760px;margin:0 auto;}
+.brand{font-weight:700;letter-spacing:.02em;font-size:1.05rem;color:var(--accent);}
+.nav{display:flex;gap:16px;font-size:.85rem;}
+.nav a{color:var(--ink-soft);text-decoration:none;cursor:pointer;}
+.nav a:hover,.nav a:focus-visible{color:var(--accent);}
+.reset-btn{font-size:.78rem;color:var(--ink-soft);background:none;border:1px solid var(--line);border-radius:5px;padding:5px 10px;cursor:pointer;}
+section{padding:34px 0;border-bottom:1px solid var(--line);}
+section:last-of-type{border-bottom:none;}
+.tag{font-size:.75rem;color:var(--gold);}
+h1{font-size:1.7rem;line-height:1.25;margin:.3em 0 .5em;}
+h1 em{font-style:italic;color:var(--accent);}
+h2{font-size:1.25rem;margin:0 0 .6em;}
+p{color:var(--ink-soft);}
+.btn{display:inline-block;background:var(--accent);color:var(--paper-raised);border:none;border-radius:6px;padding:11px 18px;font-size:.92rem;cursor:pointer;text-decoration:none;}
+.btn.ghost{background:none;color:var(--accent);border:1px solid var(--accent);}
+.btn:focus-visible,.chip:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.card{background:var(--paper-raised);border:1px solid var(--line);border-radius:10px;padding:18px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:520px){.grid2{grid-template-columns:1fr;}}
+.stat{background:var(--paper-raised);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center;}
+.stat b{display:block;font-size:1.5rem;color:var(--accent);}
+.stat span{font-size:.75rem;color:var(--ink-soft);}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0;}
+@media(max-width:520px){.stats{grid-template-columns:repeat(2,1fr);}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px;}
+.chip{border:1px solid var(--line);background:var(--paper-raised);border-radius:20px;padding:8px 14px;font-size:.85rem;cursor:pointer;color:var(--ink);}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--paper-raised);border-color:var(--accent);}
+label.field{display:block;font-size:.85rem;color:var(--ink-soft);margin:14px 0 6px;}
+.progress-bar{height:8px;background:var(--accent-soft);border-radius:4px;overflow:hidden;margin:8px 0;}
+.progress-bar>div{height:100%;background:var(--accent);transition:width .4s;}
+.week-list{list-style:none;padding:0;margin:0;}
+.week-list li{display:flex;gap:10px;align-items:flex-start;padding:7px 0;color:var(--ink-soft);font-size:.92rem;}
+.week-list input{margin-top:3px;}
+.rule-box{background:var(--accent-soft);border-radius:8px;padding:14px;margin-top:12px;font-size:.9rem;}
+.module-title{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin:22px 0 8px;}
+.lesson{background:var(--paper-raised);border:1px solid var(--line);border-radius:10px;margin-bottom:10px;overflow:hidden;}
+.lesson-head{display:flex;align-items:center;gap:12px;padding:13px 16px;cursor:pointer;}
+.lesson-head input{width:18px;height:18px;flex-shrink:0;}
+.lesson-num{font-size:.75rem;color:var(--gold);width:34px;flex-shrink:0;}
+.lesson-title{flex:1;font-size:.95rem;}
+.lesson-title.done{color:var(--ink-soft);text-decoration:line-through;}
+.caret{color:var(--ink-soft);transition:transform .2s;font-size:.8rem;}
+.lesson.open .caret{transform:rotate(90deg);}
+.lesson-body{display:none;padding:0 16px 16px 62px;font-size:.88rem;color:var(--ink-soft);}
+.lesson.open .lesson-body{display:block;}
+.lesson-body h4{color:var(--ink);font-size:.85rem;margin:10px 0 4px;}
+.lesson-body ul{margin:4px 0;padding-left:18px;}
+.quiz-q{margin-bottom:14px;}
+.answer-btn{display:block;width:100%;text-align:left;background:var(--paper-raised);border:1px solid var(--line);border-radius:7px;padding:9px 12px;margin:5px 0;cursor:pointer;font-size:.88rem;color:var(--ink);}
+.answer-btn.correct{border-color:var(--accent);background:var(--accent-soft);}
+.answer-btn.wrong{border-color:var(--danger);color:var(--danger);}
+#coachOut{margin-top:14px;font-size:.9rem;}
+.checklist label{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-size:.92rem;color:var(--ink);border-bottom:1px solid var(--line);}
+.checklist label:last-child{border-bottom:none;}
+.note{font-size:.82rem;color:var(--ink-soft);background:var(--accent-soft);border-radius:8px;padding:12px 14px;margin-top:16px;}
+footer{padding:22px 0 40px;font-size:.78rem;color:var(--ink-soft);text-align:center;}
+.diag-actions{margin-top:18px;}
+.hidden{display:none;}
+::selection{background:var(--accent);color:var(--paper-raised);}
+</style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <div class="brand">SCORECIBLE</div>
+    <nav class="nav">
+      <a href="#dashboard">Dashboard</a><a href="#parcours">Parcours</a><a href="#coach">Coach</a><a href="#bourse">Bourse</a>
+    </nav>
+    <button class="reset-btn" id="resetBtn" type="button">Réinitialiser</button>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section id="hero">
+  <p class="tag">IELTS • TOEFL • BOURSE</p>
+  <h1>Transforme ton objectif en <em>plan d'action.</em></h1>
+  <p>Un parcours guidé pour mesurer ton niveau, travailler les 4 compétences, simuler l'examen et construire un dossier de bourse cohérent.</p>
+  <div class="diag-actions">
+    <a href="#diagnostic" class="btn">Lancer mon diagnostic</a>
+    <a href="#parcours" class="btn ghost" style="margin-left:8px;">Voir le parcours</a>
+  </div>
+  <p style="font-size:.78rem;margin-top:14px;">Formation indépendante • contenus originaux • progression enregistrée dans le navigateur</p>
+</section>
+
+<section id="diagnostic">
+  <p class="tag">ÉTAPE 01</p>
+  <h2>Ton diagnostic express</h2>
+  <p style="margin-top:-8px;font-size:.85rem;">2 minutes</p>
+
+  <label class="field">Test</label>
+  <div class="chips" id="chipTest">
+    <button class="chip" data-group="test" data-val="IELTS" type="button">IELTS</button>
+    <button class="chip" data-group="test" data-val="TOEFL iBT" type="button">TOEFL iBT</button>
+  </div>
+
+  <label class="field">Score cible</label>
+  <input id="targetScore" type="text" placeholder="ex. IELTS 7.5 ou TOEFL 95" style="width:100%;padding:10px;border-radius:7px;border:1px solid var(--line);background:var(--paper-raised);color:var(--ink);font-family:inherit;">
+
+  <label class="field">Niveau estimé</label>
+  <div class="chips" id="chipLevel">
+    <button class="chip" data-group="level" data-val="B1" type="button">B1</button>
+    <button class="chip" data-group="level" data-val="B2" type="button">B2</button>
+    <button class="chip" data-group="level" data-val="C1" type="button">C1</button>
+    <button class="chip" data-group="level" data-val="C2" type="button">C2</button>
+  </div>
+
+  <label class="field">Temps / semaine</label>
+  <div class="chips" id="chipTime">
+    <button class="chip" data-group="time" data-val="3–5 h" type="button">3–5 h</button>
+    <button class="chip" data-group="time" data-val="5–8 h" type="button">5–8 h</button>
+    <button class="chip" data-group="time" data-val="8–12 h" type="button">8–12 h</button>
+    <button class="chip" data-group="time" data-val="12 h+" type="button">12 h+</button>
+  </div>
+
+  <div class="diag-actions"><button class="btn" id="createPlanBtn" type="button">Créer mon plan</button></div>
+</section>
+
+<section id="dashboard">
+  <p class="tag">ÉTAPE 02</p>
+  <h2>Ton dashboard</h2>
+  <div class="progress-bar"><div id="progFill" style="width:0%;"></div></div>
+  <div class="stats">
+    <div class="stat"><b id="statProg">0%</b><span>Progression</span></div>
+    <div class="stat"><b id="statXP">0</b><span>XP</span></div>
+    <div class="stat"><b id="statLessons">0/18</b><span>Leçons</span></div>
+    <div class="stat"><b id="statStreak">0 j</b><span>Série</span></div>
+  </div>
+
+  <h2 style="margin-top:24px;">Cette semaine</h2>
+  <ul class="week-list" id="weekList"></ul>
+
+  <div class="rule-box">
+    <strong>Règle d'or —</strong> <span id="ruleText">Ne cherche pas à tout mémoriser. Cherche à comprendre tes erreurs et à les empêcher de se reproduire.</span>
+    <div style="margin-top:10px;"><button class="btn ghost" id="newRuleBtn" type="button">Nouvelle règle</button></div>
+  </div>
+</section>
+
+<section id="parcours">
+  <p class="tag">ÉTAPE 03</p>
+  <h2>18 leçons — parcours guidé</h2>
+  <div id="lessonList"></div>
+</section>
+
+<section id="quiz">
+  <p class="tag">ÉTAPE 04</p>
+  <h2>Mini quiz <span style="font-size:.8rem;color:var(--gold);">+50 XP</span></h2>
+  <div id="quizArea"></div>
+  <button class="btn" id="correctQuizBtn" type="button" style="margin-top:8px;">Corriger le quiz</button>
+  <p id="quizResult" style="margin-top:10px;font-weight:600;"></p>
+</section>
+
+<section id="coach">
+  <p class="tag">ÉTAPE 05</p>
+  <h2>Coach de préparation</h2>
+  <div class="card">
+    <p style="color:var(--ink);"><strong>Coach —</strong> Décris-moi ton problème en une phrase : « Je bloque en… »</p>
+    <div class="chips">
+      <button class="chip" data-skill="reading" type="button">Je bloque en Reading</button>
+      <button class="chip" data-skill="listening" type="button">Je bloque en Listening</button>
+      <button class="chip" data-skill="speaking" type="button">Je bloque en Speaking</button>
+      <button class="chip" data-skill="writing" type="button">Je bloque en Writing</button>
+    </div>
+    <div id="coachOut">Choisis une compétence pour obtenir une première stratégie.</div>
+  </div>
+</section>
+
+<section id="bourse">
+  <p class="tag">ÉTAPE 06</p>
+  <h2>Dossier de bourse</h2>
+  <div class="card checklist" id="checklist"></div>
+
+  <div class="note">
+    <strong>Note sur les examens —</strong> Les formats évoluent. Pour le TOEFL iBT, la version en vigueur depuis le 21 janvier 2026 utilise une échelle de 1 à 6 et un test adaptatif, avec une période de transition où un score comparable sur 0–120 apparaît également sur le relevé. Vérifie toujours les exigences de l'établissement visé avant de publier ou d'utiliser un score cible.
+  </div>
+</section>
+
+</div>
+
+<footer>
+  Formation indépendante, non affiliée à ETS, British Council, IDP ou Cambridge. Les exercices de cette plateforme sont originaux.<br>
+  © Score Cible — MVP éducatif • Progression locale dans le navigateur
+</footer>
+
+<script>
+(function(){
+"use strict";
+
+var STORAGE_KEY = "scorecible_state_v1";
+
+var LESSONS = [
+{m:"M0 · Bien démarrer", id:"M0.1", t:"Choisir son test et son score cible",
+ points:["Regarde d'abord ce que demande ta bourse : tests acceptés, score minimum, date limite.","IELTS : face à face, 0 à 9. TOEFL iBT : sur ordinateur, échelle en vigueur à vérifier sur ets.org.","Vise le score minimum + une marge de sécurité, jamais pile le minimum."],
+ ex:"Remplis : bourse visée, tests acceptés, score minimum, ta cible (minimum + marge), date limite.",
+ q:"Pourquoi viser au-dessus du score minimum exigé ?", a:["Pour impressionner le jury","Pour garder une marge en cas de mauvaise journée","Ce n'est pas utile"], correct:1},
+{m:"M0 · Bien démarrer", id:"M0.2", t:"Diagnostic et plan de 4 semaines",
+ points:["Passe un test blanc complet en conditions réelles avant tout.","Note ton score par compétence : Reading, Listening, Speaking, Writing.","Travaille en priorité l'écart le plus grand, 1h/jour, 6j/semaine."],
+ ex:"Passe un test blanc, remplis ta grille de scores, identifie tes 2 priorités.",
+ q:"Que regarde-t-on en premier dans un diagnostic ?", a:["Le score total uniquement","L'écart entre les 4 compétences","Le temps passé sur le test"], correct:1},
+{m:"M1 · Reading", id:"M1.1", t:"Lire vite et repérer l'essentiel",
+ points:["Le Reading est un test de recherche, pas de lecture intégrale.","Méthode SQRL : Survol, Questions d'abord, Repérage des mots-clés, Lecture précise.","Le texte utilise des synonymes : 'increase' ↔ 'rise', 'grow'."],
+ ex:"Chronomètre 20 min sur un texte d'entraînement officiel, applique SQRL.",
+ q:"Que fait-on avant de lire le texte en détail ?", a:["On lit les questions et on repère les mots-clés","On mémorise tout le texte","On saute directement aux réponses"], correct:0},
+{m:"M1 · Reading", id:"M1.2", t:"Types de questions et leurs pièges",
+ points:["True/False/Not Given : absent du texte = Not Given, jamais False par défaut.","Matching headings : cherche l'idée principale, pas un mot en commun.","Sentence completion : respecte strictement la limite de mots."],
+ ex:"Fais 10 questions True/False/Not Given, note pourquoi chaque erreur s'est produite.",
+ q:"Une information absente du texte se répond :", a:["False","Not Given","True"], correct:1},
+{m:"M2 · Listening", id:"M2.1", t:"Prise de notes efficace",
+ points:["Pendant la lecture des questions : mots-clés, type de réponse attendu, ordre des réponses.","Utilise des symboles courts (→ ↑ ↓ = ≠) plutôt que des phrases.","Si une réponse t'échappe, lâche-la tout de suite pour ne pas rater la suivante."],
+ ex:"Écoute 3 min d'audio académique, note uniquement des mots-clés, reformule à l'oral.",
+ q:"Dans quel ordre arrivent généralement les réponses ?", a:["Aléatoire","Dans l'ordre des questions","À l'envers"], correct:1},
+{m:"M2 · Listening", id:"M2.2", t:"Les pièges du Listening",
+ points:["Repère les mots de correction : 'actually', 'I mean', 'sorry' — la dernière info est la bonne.","Distingue bien -teen et -ty (15/50).","Écoute plusieurs accents chaque semaine (britannique, américain, australien)."],
+ ex:"Fais une dictée de 10 nombres et 5 noms épelés en anglais.",
+ q:"Si le locuteur dit « at three… no, sorry, four », la réponse est :", a:["Three","Four","Les deux"], correct:1},
+{m:"M3 · Speaking", id:"M3.1", t:"Structurer une réponse avec la méthode PREP",
+ points:["PREP : Point (réponse directe), Reason (pourquoi), Example (concret), Point (on répète).","IELTS Partie 2 : 1 min de préparation, note 4 mots-clés, parle 1 à 2 min.","Mieux vaut une réponse simple et fluide qu'une réponse compliquée avec des silences."],
+ ex:"Réponds à voix haute à 5 questions personnelles avec la méthode PREP, enregistre-toi.",
+ q:"Que signifie PREP ?", a:["Point, Reason, Example, Point","Prepare, Read, Explain, Practice","Aucune des deux"], correct:0},
+{m:"M3 · Speaking", id:"M3.2", t:"Fluidité, connecteurs et prononciation",
+ points:["Utilise des connecteurs (moreover, as a result, on the other hand) plutôt que 'and… and…'.","Le shadowing (répéter immédiatement une phrase entendue) est l'exercice le plus rentable.","Les examinateurs notent l'intelligibilité, pas l'absence d'accent."],
+ ex:"Choisis une vidéo de 30s, fais le shadowing 5 fois, compare ta 5e version à l'original.",
+ q:"Qu'est-ce que le shadowing ?", a:["Lire un texte silencieusement","Répéter immédiatement ce qu'on entend en imitant le rythme","Apprendre du vocabulaire par cœur"], correct:1},
+{m:"M3 · Speaking", id:"M3.3", t:"Simulation chronométrée et auto-évaluation",
+ points:["Enregistre-toi en conditions réelles, réécoute deux fois : sans grille, puis avec.","4 critères IELTS : fluidité, vocabulaire, grammaire, prononciation.","Transcris une minute de ta réponse et souligne les répétitions et erreurs."],
+ ex:"Simulation complète des 3 parties (11–14 min), notée avec la grille des 4 critères.",
+ q:"Quels sont les 4 critères d'évaluation du Speaking ?", a:["Vitesse, volume, accent, durée","Fluidité, vocabulaire, grammaire, prononciation","Grammaire uniquement"], correct:1},
+{m:"M4 · Writing", id:"M4.1", t:"IELTS Task 1 : graphiques, tableaux, lettres",
+ points:["4 paragraphes : introduction (reformulation), overview (tendances), détails, détails.","L'overview est indispensable pour un bon score — c'est l'erreur n°1 des candidats.","Vocabulaire des tendances : rise/fall/remain stable/peak at, avec des adverbes variés."],
+ ex:"Écris une réponse Task 1 en 20 min sur un graphique d'entraînement (150 mots min).",
+ q:"Quel paragraphe est indispensable pour un bon score en Task 1 ?", a:["La conclusion personnelle","L'overview","La liste de tous les chiffres"], correct:1},
+{m:"M4 · Writing", id:"M4.2", t:"L'essai argumentatif et le Writing du TOEFL",
+ points:["5 min de plan avant d'écrire : introduction, 2 idées développées, conclusion.","Chaque idée = explication + exemple concret, jamais d'idée nouvelle en conclusion.","TOEFL Academic Discussion : position claire + idée nouvelle + référence à un étudiant."],
+ ex:"Écris un essai complet en 40 min : 5 min de plan, 30 min d'écriture, 5 min de relecture.",
+ q:"Combien de temps de plan avant d'écrire un essai ?", a:["0 minute, on écrit directement","Environ 5 minutes","20 minutes"], correct:1},
+{m:"M4 · Writing", id:"M4.3", t:"Grammaire : les erreurs des francophones",
+ points:["'I am agree' est faux → 'I agree'. 'Information' et 'advice' sont indénombrables.","'People' est toujours pluriel : 'people are', jamais 'people is'.","'Actually' = en fait (pas 'actuellement', qui se dit 'currently')."],
+ ex:"Corrige : 'People is worried about the informations.' puis 'I am agree with this advices.'",
+ q:"Comment dit-on « actuellement » en anglais ?", a:["Actually","Currently","Actualy"], correct:1},
+{m:"M4 · Writing", id:"M4.4", t:"Vocabulaire académique par thème",
+ points:["4 thèmes clés : éducation, environnement, technologie, société.","Apprends chaque mot avec une phrase d'exemple, jamais isolé.","Utilise la répétition espacée (revoir à J+1, J+3, J+7) pour mémoriser durablement."],
+ ex:"Choisis 10 mots de vocabulaire académique, écris une phrase originale pour chacun.",
+ q:"Comment mémorise-t-on mieux un mot de vocabulaire ?", a:["Isolé, sur une liste","En contexte, dans une phrase","En le traduisant seulement"], correct:1},
+{m:"M5 · Jour J", id:"M5.1", t:"Gestion du stress et logistique",
+ points:["La veille : pas de révision, relis ta fiche de synthèse, prépare ton sac, dors.","Vérifie pièce d'identité, lieu, trajet, règles du centre — arrive en avance.","Respiration 4-4-6 (inspire 4s, retiens 4s, expire 6s) avant chaque épreuve."],
+ ex:"Écris ta routine heure par heure pour la veille et le matin du test.",
+ q:"Que faire la veille du test ?", a:["Réviser toute la nuit","Se reposer et dormir 8h","Faire un test blanc supplémentaire"], correct:1},
+{m:"M5 · Jour J", id:"M5.2", t:"Test blanc final et analyse des erreurs",
+ points:["2 semaines avant le test : un test blanc complet, dans les conditions réelles.","Classe chaque erreur : compréhension, vocabulaire, temps, stress, inattention.","Si l'écart avec ta cible dépasse 1 point, envisage de reporter le test."],
+ ex:"Passe le test blanc final, classe tes erreurs, définis tes 3 priorités des 7 derniers jours.",
+ q:"Où passe-t-on le plus de temps : passer le test blanc ou le corriger ?", a:["Le passer","Le corriger","Autant l'un que l'autre"], correct:1},
+{m:"M6 · Dossier bourse", id:"M6.1", t:"La lettre de motivation",
+ points:["5 blocs : accroche, parcours, pourquoi cette bourse, projet après la formation, conclusion.","Une lettre par bourse, jamais un texte générique envoyé partout.","Chaque affirmation doit être appuyée par un fait concret, pas une phrase vague."],
+ ex:"Rédige ta lettre en 350–450 mots en suivant les 5 blocs, fais-la relire.",
+ q:"Peut-on envoyer la même lettre à toutes les bourses ?", a:["Oui, ça fait gagner du temps","Non, elle doit être adaptée à chaque bourse","Seulement pour les 2 premières"], correct:1},
+{m:"M6 · Dossier bourse", id:"M6.2", t:"CV académique et documents du dossier",
+ points:["CV académique : 1–2 pages, ordre antichronologique, sans photo sauf si exigée.","Demande les lettres de recommandation au moins 3–4 semaines avant la date limite.","Vérifie tôt si les relevés de notes doivent être traduits ou légalisés."],
+ ex:"Crée la checklist de ta bourse avec, pour chaque document, une date de réalisation.",
+ q:"Combien de temps avant la date limite demander les recommandations ?", a:["La veille","Au moins 3 à 4 semaines avant","Le jour de la demande d'inscription"], correct:1},
+{m:"M6 · Dossier bourse", id:"M6.3", t:"Calendrier et erreurs fatales",
+ points:["Ne soumets jamais le dernier jour : les sites saturent, vise 3 jours d'avance.","Erreurs fatales : dossier incomplet, limite de mots dépassée, fichier illisible.","Postule à plusieurs bourses : la concurrence est forte, un plan B protège."],
+ ex:"Construis ton calendrier inversé avec les vraies dates de ta bourse.",
+ q:"Quand faut-il soumettre son dossier au plus tard ?", a:["Le jour même de la date limite","Au moins 3 jours avant la date limite","Une semaine après si en retard"], correct:1}
+];
+
+var COACH = {
+ reading:"<strong>Reading —</strong> Applique la méthode SQRL : Survol du texte (1 min), lecture des Questions d'abord en soulignant les mots-clés, Repérage des synonymes dans le texte, puis Lecture précise de la seule zone concernée. Ne bloque jamais plus de 90 secondes sur une question.",
+ listening:"<strong>Listening —</strong> Prépare-toi avant l'audio : mots-clés soulignés, type de réponse deviné, ordre des réponses anticipé. Note en symboles courts (→ ↑ ↓). Si une réponse t'échappe, lâche-la immédiatement pour ne pas rater les suivantes.",
+ speaking:"<strong>Speaking —</strong> Utilise la méthode PREP (Point, Reason, Example, Point) pour structurer chaque réponse sans blanc. Fais 10 minutes de shadowing par jour pour la fluidité et la prononciation. Enregistre-toi et compare avec la grille des 4 critères.",
+ writing:"<strong>Writing —</strong> Consacre toujours 5 minutes à un plan avant d'écrire. Structure en 4 paragraphes (introduction, overview ou idée 1, idée 2, conclusion). Relis 2 minutes à la fin pour les erreurs de grammaire les plus fréquentes des francophones."
+};
+
+var CHECKLIST_ITEMS = [
+ "Formation et conditions d'éligibilité vérifiées",
+ "Score linguistique compatible avec la formation",
+ "CV académique finalisé",
+ "Relevés / diplômes réunis",
+ "Lettre de motivation adaptée",
+ "Projet professionnel cohérent",
+ "Recommandations vérifiées",
+ "Dates limites contrôlées"
+];
+
+var RULES = [
+ "Ne cherche pas à tout mémoriser. Cherche à comprendre tes erreurs et à les empêcher de se reproduire.",
+ "Une heure par jour bat sept heures le dimanche. La régularité compte plus que l'intensité.",
+ "Une réponse laissée vide ne rapporte rien. Une question qui te bloque plus de 90 secondes : tu passes.",
+ "Le score n'est pas la note du dossier de bourse. Le dossier compte autant que le test.",
+ "L'examinateur note l'intelligibilité, pas l'absence d'accent."
+];
+
+var WEEK_TASKS = ["1 leçon Reading","1 entraînement Listening","2 Speaking chronométrés","1 Writing corrigé"];
+
+function defaultState(){
+  return { diag:null, lessonsDone:{}, xp:0, lastActiveDay:null, streak:0, weekChecks:[false,false,false,false], checklist:{}, ruleIdx:0, quizAnswers:{} };
+}
+function load(){
+  try{ var raw = localStorage.getItem(STORAGE_KEY); if(!raw) return defaultState();
+    var s = JSON.parse(raw); return Object.assign(defaultState(), s);
+  }catch(e){ return defaultState(); }
+}
+function save(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} }
+
+var state = load();
+
+function todayStr(){ var d=new Date(); return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); }
+function touchStreak(){
+  var t = todayStr();
+  if(state.lastActiveDay === t) return;
+  var y = new Date(); y.setDate(y.getDate()-1);
+  var yStr = y.getFullYear()+"-"+(y.getMonth()+1)+"-"+y.getDate();
+  state.streak = (state.lastActiveDay === yStr) ? state.streak+1 : 1;
+  state.lastActiveDay = t;
+}
+
+function renderChips(containerId, group, selectedVal){
+  var el = document.getElementById(containerId);
+  Array.prototype.forEach.call(el.querySelectorAll('.chip'), function(btn){
+    btn.setAttribute('aria-pressed', btn.dataset.val === selectedVal ? 'true':'false');
+    btn.addEventListener('click', function(){
+      Array.prototype.forEach.call(el.querySelectorAll('.chip'), function(b){ b.setAttribute('aria-pressed','false'); });
+      btn.setAttribute('aria-pressed','true');
+      state.diag = state.diag || {};
+      state.diag[group] = btn.dataset.val;
+      save();
+    });
+  });
+}
+
+function renderLessons(){
+  var list = document.getElementById('lessonList');
+  list.innerHTML = '';
+  var currentModule = null;
+  LESSONS.forEach(function(les, idx){
+    if(les.m !== currentModule){
+      currentModule = les.m;
+      var mt = document.createElement('div'); mt.className='module-title'; mt.textContent = currentModule;
+      list.appendChild(mt);
+    }
+    var done = !!state.lessonsDone[les.id];
+    var wrap = document.createElement('div'); wrap.className='lesson';
+    wrap.innerHTML =
+      '<div class="lesson-head">'+
+        '<input type="checkbox" aria-label="Leçon terminée" '+(done?'checked':'')+' data-lesson="'+les.id+'">'+
+        '<span class="lesson-num">'+les.id+'</span>'+
+        '<span class="lesson-title '+(done?'done':'')+'">'+les.t+'</span>'+
+        '<span class="caret">›</span>'+
+      '</div>'+
+      '<div class="lesson-body">'+
+        '<h4>À retenir</h4><ul>'+les.points.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul>'+
+        '<h4>Exercice</h4><p>'+les.ex+'</p>'+
+      '</div>';
+    var head = wrap.querySelector('.lesson-head');
+    head.addEventListener('click', function(e){
+      if(e.target.tagName === 'INPUT') return;
+      wrap.classList.toggle('open');
+    });
+    var cb = wrap.querySelector('input[type="checkbox"]');
+    cb.addEventListener('click', function(e){ e.stopPropagation(); });
+    cb.addEventListener('change', function(){
+      state.lessonsDone[les.id] = cb.checked;
+      if(cb.checked){ state.xp += 20; touchStreak(); }
+      save(); renderAll();
+    });
+    list.appendChild(wrap);
+  });
+}
+
+function renderDashboard(){
+  var doneCount = Object.keys(state.lessonsDone).filter(function(k){return state.lessonsDone[k];}).length;
+  var pct = Math.round((doneCount/LESSONS.length)*100);
+  document.getElementById('progFill').style.width = pct+'%';
+  document.getElementById('statProg').textContent = pct+'%';
+  document.getElementById('statXP').textContent = state.xp;
+  document.getElementById('statLessons').textContent = doneCount+'/'+LESSONS.length;
+  document.getElementById('statStreak').textContent = state.streak+' j';
+
+  var wl = document.getElementById('weekList'); wl.innerHTML='';
+  WEEK_TASKS.forEach(function(task, i){
+    var li = document.createElement('li');
+    var checked = state.weekChecks[i] ? 'checked' : '';
+    li.innerHTML = '<input type="checkbox" data-week="'+i+'" '+checked+'> <span>'+task+'</span>';
+    var cb = li.querySelector('input');
+    cb.addEventListener('change', function(){
+      state.weekChecks[i] = cb.checked;
+      if(cb.checked){ state.xp += 10; touchStreak(); }
+      save(); renderDashboard();
+    });
+    wl.appendChild(li);
+  });
+
+  document.getElementById('ruleText').textContent = RULES[state.ruleIdx % RULES.length];
+}
+
+function renderQuiz(){
+  var picks = [0,3,7,10,14].map(function(i){ return LESSONS[i]; });
+  var area = document.getElementById('quizArea'); area.innerHTML='';
+  picks.forEach(function(les, qi){
+    var block = document.createElement('div'); block.className='quiz-q';
+    block.innerHTML = '<p style="color:var(--ink);"><strong>'+(qi+1)+'.</strong> '+les.q+'</p>';
+    les.a.forEach(function(opt, oi){
+      var b = document.createElement('button'); b.type='button'; b.className='answer-btn';
+      b.textContent = opt;
+      b.addEventListener('click', function(){
+        state.quizAnswers[les.id] = oi; save();
+        Array.prototype.forEach.call(block.querySelectorAll('.answer-btn'), function(x){ x.classList.remove('correct','wrong'); });
+        b.classList.add(oi === les.correct ? 'correct':'wrong');
+      });
+      block.appendChild(b);
+    });
+    area.appendChild(block);
+  });
+  document.getElementById('quizResult').textContent='';
+}
+
+function correctQuiz(){
+  var picks = [0,3,7,10,14].map(function(i){ return LESSONS[i]; });
+  var score = 0;
+  picks.forEach(function(les){ if(state.quizAnswers[les.id] === les.correct) score++; });
+  document.getElementById('quizResult').textContent = score+' / '+picks.length+' bonnes réponses.';
+  if(score === picks.length){ state.xp += 50; touchStreak(); save(); renderDashboard(); }
+}
+
+function renderChecklist(){
+  var c = document.getElementById('checklist'); c.innerHTML='';
+  CHECKLIST_ITEMS.forEach(function(item, i){
+    var label = document.createElement('label');
+    var checked = state.checklist[i] ? 'checked':'';
+    label.innerHTML = '<input type="checkbox" data-check="'+i+'" '+checked+'> <span>'+item+'</span>';
+    var cb = label.querySelector('input');
+    cb.addEventListener('change', function(){ state.checklist[i] = cb.checked; save(); });
+    c.appendChild(label);
+  });
+}
+
+function renderAll(){ renderDashboard(); renderLessons(); }
+
+document.getElementById('createPlanBtn').addEventListener('click', function(){
+  var t = document.getElementById('targetScore').value.trim();
+  if(t){ state.diag = state.diag || {}; state.diag.target = t; }
+  touchStreak(); save();
+  document.getElementById('dashboard').scrollIntoView({behavior:'smooth'});
+});
+
+document.getElementById('newRuleBtn').addEventListener('click', function(){
+  state.ruleIdx = (state.ruleIdx+1) % RULES.length; save(); renderDashboard();
+});
+
+document.getElementById('correctQuizBtn').addEventListener('click', correctQuiz);
+
+document.getElementById('resetBtn').addEventListener('click', function(){
+  if(confirm('Réinitialiser toute ta progression sur cet appareil ?')){
+    localStorage.removeItem(STORAGE_KEY);
+    state = defaultState();
+    document.getElementById('targetScore').value='';
+    document.querySelectorAll('.chip[aria-pressed="true"]').forEach(function(b){ b.setAttribute('aria-pressed','false'); });
+    renderAll(); renderChecklist(); renderQuiz();
+  }
+});
+
+Array.prototype.forEach.call(document.querySelectorAll('#coach .chip'), function(btn){
+  btn.addEventListener('click', function(){
+    Array.prototype.forEach.call(document.querySelectorAll('#coach .chip'), function(b){ b.setAttribute('aria-pressed','false'); });
+    btn.setAttribute('aria-pressed','true');
+    document.getElementById('coachOut').innerHTML = COACH[btn.dataset.skill];
+  });
+});
+
+if(state.diag){
+  if(state.diag.target) document.getElementById('targetScore').value = state.diag.target;
+}
+renderChips('chipTest','test', state.diag && state.diag.test);
+renderChips('chipLevel','level', state.diag && state.diag.level);
+renderChips('chipTime','time', state.diag && state.diag.time);
+renderChecklist();
+renderQuiz();
+renderAll();
+
+})();
+</script>
+</body>
+</html>
